@@ -17,6 +17,16 @@ The code has been tested in Ubuntu 18.04 with the following components:
 
 The main program, transformer-cnn.py, uses the config.cfg file to read all the parameters of a task to do. After filling the config.cfg with the appropriate information, launch the python3 transformer-cnn.py config.cfg
 
+# Train using cross validation using this command
+Run the docker container with gpus and directory mounting
+```bash
+docker run --gpus all -it -v $(pwd):/app 709205217789
+```
+
+```bash
+./cv5.sh /app/data/train_set.csv
+```
+
 # How to train a model
 
 To train a model, one needs to create a config file like this.

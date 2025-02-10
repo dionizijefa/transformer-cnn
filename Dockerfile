@@ -1,7 +1,9 @@
-FROM sulfurheron/nvidia-cuda:9.0-cudnn7-devel-ubuntu16.04-2018-06-08
+FROM nvidia/cuda:12.4.0-runtime-ubuntu22.04
 
 RUN apt-get update && apt-get install -y \
     wget \
+    libxrender1 \
+    libxext6 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -17,8 +19,8 @@ SHELL ["/bin/bash", "--login", "-c"]
 
 RUN source activate myenv && \
     conda config --add channels rdkit && \
-    conda install -y tensorflow-gpu=1.12 && \
-    conda install -y rdkit=2018.09.2 && \
+    conda install -y tensorflow && \
+    conda install -y rdkit && \
     conda install -y numpy h5py
 
 WORKDIR /app

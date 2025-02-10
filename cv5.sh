@@ -1,5 +1,8 @@
 #!/bin/bash 
 
+# Exit on error and undefined variables
+set -eu
+
 # Add timestamp start logging
 timestamp() {
   date "+%Y-%m-%d %H:%M:%S"
@@ -9,6 +12,7 @@ echo "[$(timestamp)] Starting cross-validation script with input file: $1"
 
 SMI=$1;
 
+rm -rf test
 mkdir test 
 cd test 
 rm -rf * 
