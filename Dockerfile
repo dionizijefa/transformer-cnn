@@ -1,9 +1,11 @@
-FROM nvidia/cuda:12.4.0-runtime-ubuntu22.04
+FROM ubuntu:22.04
 
 RUN apt-get update && apt-get install -y \
     wget \
     libxrender1 \
     libxext6 \
+    python3-pip \
+    python3.6 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -19,9 +21,9 @@ SHELL ["/bin/bash", "--login", "-c"]
 
 RUN source activate myenv && \
     conda config --add channels rdkit && \
-    conda install -y tensorflow && \
     conda install -y rdkit && \
-    conda install -y numpy h5py
+    conda install -y numpy h5py && \
+    conda install -c anaconda keras-gpu
 
 WORKDIR /app
 
@@ -31,4 +33,4 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/compat
 
-CMD ["/bin/bash", "-l"]
+CMD ["/bin/bash"]
